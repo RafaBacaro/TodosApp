@@ -11,7 +11,6 @@ export class ProjectsPageComponent implements OnInit {
   @ViewChild('appendTask', {read: ViewContainerRef, static: true}) 
   public target!: ViewContainerRef;
 
-  public doNotShow: boolean = false;
   constructor() { }
 
   ngOnInit(): void {

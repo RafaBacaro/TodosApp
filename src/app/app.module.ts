@@ -8,7 +8,7 @@ import { HomeComponent } from './components/home/home.component';
 import { SharedModule } from './shared/shared.module';
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card'
-//import { DragDropModule } from '@angular/';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { MenuModule } from 'primeng/menu';
 import { ProjectsPageComponent } from './components/projects-page/projects-page.component';
@@ -27,8 +27,8 @@ import { TasksComponent } from './components/projects-page/tasks/tasks.component
     SharedModule,
     MenuModule,
     ButtonModule,
-    CardModule/* ,
-    DragDropModule */
+    CardModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]

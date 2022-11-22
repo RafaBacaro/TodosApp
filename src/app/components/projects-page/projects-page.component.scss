@@ -1,0 +1,13 @@
+.firstCard {
+    display: flex;
+    width: 30%;
+    margin-top: 3rem;
+    height: 87%;
+    border-radius: 8px;
+    background-color: rgba(57, 32, 178, 0.14);
+    flex-direction: column;
+
+    div {
+        margin-left: 0.6rem;
+    }
+}

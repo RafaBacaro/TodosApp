@@ -1,0 +1,28 @@
+<div class="container projects d-flex justify-content-around align-items-baseline w-100 h-100">
+    <div class="firstCard todo">
+        <div class="header h-25">
+            <label>To Do</label>
+            <div class="addBtn">
+                <button pButton type="button" (click)="addToDo()"
+                    class="p-button-raised p-button-secondary p-button p-button-sm">
+                    Add task
+                </button>
+            </div>
+        </div>
+        <div class="body h-75">
+            <ng-container #appendTask></ng-container>
+        </div>
+    </div>
+    <div class="firstCard inprogress">
+        <div class="header">
+            <label>In Progress</label>
+        </div>
+    </div>
+    <div class="firstCard done">
+        <div class="header">
+            <label>Done</label>
+        </div>
+    </div>
+</div>
+
+<!-- <tasks *ngIf="doNotShow"></tasks> -->

@@ -1,0 +1,30 @@
+ul {
+    list-style-type: none;
+    
+    li {
+        padding: 1rem 1rem 0rem 1rem;
+        cursor: pointer;
+        i::before {
+            margin-right: 3rem;
+            font-size: 1.4rem;
+        }
+
+        i {
+            margin-right: 0.7rem;
+        }
+
+        &.separator {
+            padding-top: 14rem;
+        }
+
+        &.last {
+            padding-bottom: 1rem;
+        }
+    }
+}
+
+.menu {
+    border-right: 2px solid lightgray;
+    border-radius: 1rem 0 0 1rem;
+}
+

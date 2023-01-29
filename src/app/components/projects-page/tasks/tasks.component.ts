@@ -1,4 +1,5 @@
-import { Component, Input, OnInit, ViewContainerRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewContainerRef } from '@angular/core';
+import { TaskModel } from 'src/app/models/task-model';
 
 @Component({
   selector: 'tasks',
@@ -7,8 +8,9 @@ import { Component, Input, OnInit, ViewContainerRef } from '@angular/core';
 })
 export class TasksComponent implements OnInit {
 
-  @Input() name: string = '';
-  @Input() content: string = '';
+  @Input() task!: TaskModel;
+  @Output() editTaskNameEvent = new EventEmitter<string>;
+  @Output() editTaskContentEvent = new EventEmitter<string>;
 
   constructor(public viewContainerRef: ViewContainerRef) { }
 

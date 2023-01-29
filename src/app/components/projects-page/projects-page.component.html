@@ -9,18 +9,45 @@
                 </button>
             </div>
         </div>
-        <div class="body h-75">
-            <ng-container #appendTask></ng-container>
+        <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="toDoList" 
+            [cdkDropListConnectedTo]="[doneList,inprogList]" (cdkDropListDropped)="drop($event, toDoList)"
+            class="body h-75" (cdkDropListExited)="movingElement('todo')">
+            <p-card *ngFor="let task of toDoList" cdkDrag styleClass="m">
+                <ng-template pTemplate="header">
+                    {{task.name}}
+                </ng-template>
+                {{task.content}}
+            </p-card>
         </div>
     </div>
     <div class="firstCard inprogress">
-        <div class="header">
+        <div class="header h-25">
             <label>In Progress</label>
+        </div>
+        <div cdkDropList #inprogList="cdkDropList" [cdkDropListData]="inProgressList" 
+            [cdkDropListConnectedTo]="[todoList, doneList]" (cdkDropListDropped)="drop($event, inProgressList)"
+            class="body h-75" (cdkDropListExited)="movingElement('inprogress')">
+            <p-card *ngFor="let task of inProgressList" cdkDrag>
+                <ng-template pTemplate="header">
+                    {{task.name}}
+                </ng-template>
+                {{task.content}}
+            </p-card>
         </div>
     </div>
     <div class="firstCard done">
-        <div class="header">
+        <div class="header h-25">
             <label>Done</label>
+        </div>
+        <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="doNeList" 
+            [cdkDropListConnectedTo]="[todoList, inprogList]" (cdkDropListDropped)="drop($event, doNeList)"
+            class="body h-75" (cdkDropListExited)="movingElement('done')">
+            <p-card *ngFor="let task of doNeList" cdkDrag>
+                <ng-template pTemplate="header">
+                    {{task.name}}
+                </ng-template>
+                {{task.content}}
+            </p-card>
         </div>
     </div>
 </div>

@@ -3,19 +3,27 @@
         <div class="header h-25">
             <label>To Do</label>
             <div class="addBtn">
-                <button pButton type="button" (click)="addToDo()"
+                <button pButton type="button" (click)="showOverlay($event, overlayEditTask)"
                     class="p-button-raised p-button-secondary p-button p-button-sm">
                     Add task
                 </button>
             </div>
         </div>
-        <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="toDoList" 
+        <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="toDoList"
             [cdkDropListConnectedTo]="[doneList,inprogList]" (cdkDropListDropped)="drop($event, toDoList)"
             class="body h-75" (cdkDropListExited)="movingElement('todo')">
-            <p-card *ngFor="let task of toDoList" cdkDrag styleClass="m">
+            <p-card *ngFor="let task of toDoList" cdkDrag class="tasks-card">
                 <ng-template pTemplate="header">
-                    {{task.name}}
+                    <div class="card-header-name">{{task.name}}</div>
+                    <div class="card-header-content">
+                        <i (click)="viewTask(task, 'todo',$event, overlayEditTask)" class="pi pi-external-link"></i>
+                        <i (click)="openEdit(task, 'todo',$event, overlayEditTask)" class="pi pi-pencil"></i>
+                        <i (click)="deleteTask(task, 'todo')" class="pi pi-trash"></i>
+                    </div>
                 </ng-template>
+                <div class="badger">
+                    <p-badge *ngFor="let tag of task.tags" [value]="tag" severity="info">{{tag}}</p-badge>
+                </div>
                 {{task.content}}
             </p-card>
         </div>
@@ -24,13 +32,22 @@
         <div class="header h-25">
             <label>In Progress</label>
         </div>
-        <div cdkDropList #inprogList="cdkDropList" [cdkDropListData]="inProgressList" 
+        <div cdkDropList #inprogList="cdkDropList" [cdkDropListData]="inProgressList"
             [cdkDropListConnectedTo]="[todoList, doneList]" (cdkDropListDropped)="drop($event, inProgressList)"
             class="body h-75" (cdkDropListExited)="movingElement('inprogress')">
             <p-card *ngFor="let task of inProgressList" cdkDrag>
                 <ng-template pTemplate="header">
-                    {{task.name}}
+                    <div class="card-header-name">{{task.name}}</div>
+                    <div class="card-header-content">
+                        <i (click)="viewTask(task, 'inprogress',$event, overlayEditTask)"
+                            class="pi pi-external-link"></i>
+                        <i (click)="openEdit(task, 'inprogress',$event, overlayEditTask)" class="pi pi-pencil"></i>
+                        <i (click)="deleteTask(task, 'inprogress')" class="pi pi-trash"></i>
+                    </div>
                 </ng-template>
+                <div class="badger">
+                    <p-badge *ngFor="let tag of task.tags" [value]="tag" severity="info"></p-badge>
+                </div>
                 {{task.content}}
             </p-card>
         </div>
@@ -39,15 +56,29 @@
         <div class="header h-25">
             <label>Done</label>
         </div>
-        <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="doNeList" 
+        <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="doNeList"
             [cdkDropListConnectedTo]="[todoList, inprogList]" (cdkDropListDropped)="drop($event, doNeList)"
             class="body h-75" (cdkDropListExited)="movingElement('done')">
             <p-card *ngFor="let task of doNeList" cdkDrag>
                 <ng-template pTemplate="header">
-                    {{task.name}}
+                    <div class="card-header-name">{{task.name}}</div>
+                    <div class="card-header-content">
+                        <i (click)="viewTask(task, 'done',$event, overlayEditTask)" class="pi pi-external-link"></i>
+                        <i (click)="openEdit(task, 'done',$event, overlayEditTask)" class="pi pi-pencil"></i>
+                        <i (click)="deleteTask(task, 'done')" class="pi pi-trash"></i>
+                    </div>
                 </ng-template>
+                <div class="badger">
+                    <p-badge *ngFor="let tag of task.tags" [value]="tag" severity="info"></p-badge>
+                </div>
                 {{task.content}}
             </p-card>
         </div>
     </div>
 </div>
+
+<p-overlayPanel #overlayEditTask [dismissable]="false" [showCloseIcon]="true">
+    <tasks [tasks]="toDoList" (editTaskNameEvent)="addToDo($event, overlayEditTask)" (saveEditTask)="closeOverlay($event, overlayEditTask)"
+        (cancelEditTask)="closeOverlay($event, overlayEditTask)" [openTask]="task" [openTaskCaller]="openTaskCaller">
+    </tasks>
+</p-overlayPanel>

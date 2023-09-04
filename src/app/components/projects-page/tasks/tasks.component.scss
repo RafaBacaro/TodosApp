@@ -1,0 +1,28 @@
+.buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+.contentTask {
+    max-width: 450px;
+    min-width: 400px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .inputs {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.block {
+    margin-right: 1rem;
+
+    &.content_input {
+        margin-bottom: 0.5rem;
+    }
+
+}

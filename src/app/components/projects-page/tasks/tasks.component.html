@@ -1,8 +1,60 @@
-<div cdkDrag>
-    <p-card >
-        <ng-template pTemplate="header">
-            {{task.name}}
-        </ng-template>
-        {{task.content}}
-    </p-card>
+<div class="contentTask">
+    <div class="inputs name">
+        <label for="name" class="block name_input">Name:</label>
+        <input id="name" type="text" aria-describedby="name-help" [disabled]="disableAll"
+            [ngClass]="{'ng-invalid': 'invalidName', 'ng-dirty': 'invalidName'}" pInputText [(ngModel)]="taskName" />
+        <small id="name-help" class="p-error block" *ngIf="checkName()">{{invalidName}}</small>
+    </div>
+    <div class="inputs content">
+        <label for="content" class="block content_input">Content:</label>
+        <textarea pInputTextarea id="content" type="textArea" aria-describedby="content-help" [disabled]="disableAll"
+            [ngClass]="{'ng-invalid': 'invalidContent', 'ng-dirty': 'invalidContent'}" pInputText
+            [(ngModel)]="taskContent" [rows]="5" [cols]="30" pInputTextarea [autoResize]="true"></textarea>
+        <small id="content-help" class="p-error block" *ngIf="checkContent()">{{invalidContent}}</small>
+    </div>
+    <div class="inputs tags">
+        <label for="tags" class="block tags">Tags:</label>
+        <p-chips [(ngModel)]="taskTags" [separator]="separatorExp" placeholder="Press enter to create the tag"
+            [disabled]="disableAll"></p-chips>
+        <small id="tags-help" class="p-error block" *ngIf="checkTags()">{{invalidTags}}</small>
+    </div>
+    <div class="inputs severity">
+        <label for="severity" class="block severity">Severity:</label>
+        <!-- TODO show only one severity by option -->
+        <p-dropdown [options]="severityOptions" [(ngModel)]="taskSeverity" placeholder="Select a severity">
+            <ng-template pTemplate="selectedItem">
+                <div class="country-item country-item-value">
+                    <i ngClass="getSeverityIcons()"></i>
+                    <div>{{taskSeverity}}</div>
+                </div>
+            </ng-template>
+            <ng-template let-country pTemplate="item">
+                <div class="country-item">
+                    <i ngClass="getSeverityIcons()"></i>
+                    <div>{{severityOptions}}</div>
+                </div>
+            </ng-template>ƒ
+        </p-dropdown>
+    </div>
+    <div class="inputs type">
+        <label for="type" class="block type">Type:</label>
+        <!-- TODO put the getTypeicons inside of each drop item -->
+        <p-dropdown>
+        </p-dropdown>
+    </div>
+
+    <div class="buttons" *ngIf="!disableAll">
+        <button pButton type="button" (click)="createTask()" *ngIf="openTaskCaller === 'add'"
+            class="p-button-raised p-button-primary p-button p-button-sm">
+            Create task
+        </button>
+        <button pButton type="button" (click)="editTask()" *ngIf="openTaskCaller === 'edit'"
+            class="p-button-raised p-button-primary p-button p-button-sm">
+            Save
+        </button>
+        <button pButton type="button" (click)="cancel()"
+            class="p-button-raised p-button-secondary p-button p-button-sm">
+            Cancel
+        </button>
+    </div>
 </div>

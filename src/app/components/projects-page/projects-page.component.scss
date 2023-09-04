@@ -6,6 +6,7 @@
     border-radius: 8px;
     background-color: rgba(57, 32, 178, 0.14);
     flex-direction: column;
+    overflow: auto;
 
     div {
         margin-left: 0.6rem;
@@ -13,6 +14,15 @@
     }
 }
 
-.m {
-    margin-bottom: 0.5rem;
+.card-header-name {
+    width: 60%;
 }
+
+.card-header-content {
+    display: flex;
+    margin-left: 0;
+    justify-content: space-between;
+    width: 22%;
+    align-items: center;
+}
+

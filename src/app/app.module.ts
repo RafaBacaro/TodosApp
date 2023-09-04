@@ -13,6 +13,13 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MenuModule } from 'primeng/menu';
 import { ProjectsPageComponent } from './components/projects-page/projects-page.component';
 import { TasksComponent } from './components/projects-page/tasks/tasks.component';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormsModule } from '@angular/forms';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ChipsModule } from 'primeng/chips';
+import { BadgeModule } from 'primeng/badge';
+import { DropdownModule } from 'primeng/dropdown';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +35,14 @@ import { TasksComponent } from './components/projects-page/tasks/tasks.component
     MenuModule,
     ButtonModule,
     CardModule,
-    DragDropModule
+    DragDropModule,
+    OverlayPanelModule,
+    InputTextModule,
+    FormsModule,
+    InputTextareaModule,
+    ChipsModule,
+    BadgeModule,
+    DropdownModule
   ],
   providers: [],
   bootstrap: [AppComponent]

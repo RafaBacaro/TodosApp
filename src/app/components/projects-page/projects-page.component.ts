@@ -16,9 +16,11 @@ export class ProjectsPageComponent implements OnInit {
   public toDoList: Array<TaskModel> = [];
   public inProgressList: Array<TaskModel> = [];
   public doNeList: Array<TaskModel> = [];
-  public movingTask: string = '';
+  public movingTaskFrom: string = '';
+  public movingTaskTo: string = '';
   public task!: TaskModel;
   public openTaskCaller = '';
+  public currentMovedIndex: number = 0;
 
   constructor() { }
 
@@ -41,34 +43,36 @@ export class ProjectsPageComponent implements OnInit {
     if (shouldClose) overlayEditTask.hide();
   }
 
-  changeStatusTo(taskIndex: number) {
-    switch (this.movingTask) {
+  changeStatusTo() {
+    let taskIndex = this.currentMovedIndex;
+    switch (this.movingTaskFrom) {
       case 'todo':
-        this.toDoList[taskIndex].status = this.movingTask;
+        this.toDoList[taskIndex].status = this.movingTaskTo;
         break;
       case 'inprogress':
-        this.inProgressList[taskIndex].status = this.movingTask;
+        this.inProgressList[taskIndex].status = this.movingTaskTo;
         break;
       case 'done':
-        this.doNeList[taskIndex].status = this.movingTask;
+        this.doNeList[taskIndex].status = this.movingTaskTo;
         break;
       default:
         break;
     }
   }
 
-  movingElement(from: string) {
-    this.movingTask = from;
+  movingElementFrom(from: string) {
+    this.movingTaskFrom = from;
   }
 
-  drop(event: CdkDragDrop<TaskModel[]>, listToMoveTo: Array<TaskModel>) {
-    let listMoveFrom = this.movingTask === 'todo' ? this.toDoList : this.movingTask === 'inprogress' ? this.inProgressList : this.doNeList;
+  drop(event: CdkDragDrop<TaskModel[]>, listToMoveTo: any, to: string) {
+    let listMoveFrom = this.movingTaskFrom === 'todo' ? this.toDoList : this.movingTaskFrom === 'inprogress' ? this.inProgressList : this.doNeList;
+    this.currentMovedIndex = event.currentIndex;
+    this.movingTaskTo = to;
     if (event.previousContainer === event.container) {
       moveItemInArray(listToMoveTo, event.previousIndex, event.currentIndex);
-      this.changeStatusTo(event.currentIndex);
     } else {
       transferArrayItem(listMoveFrom, listToMoveTo, event.previousIndex, event.currentIndex);
-      this.changeStatusTo(event.currentIndex);
+      this.changeStatusTo();
     }
   }
 

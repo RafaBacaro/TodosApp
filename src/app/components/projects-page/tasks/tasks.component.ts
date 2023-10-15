@@ -107,6 +107,13 @@ export class TasksComponent implements OnInit, OnChanges {
       task.content = this.taskContent;
       task.name = this.taskName;
       task.tags = this.taskTags;
+    } else {
+      if(this.tasks.length <= 0) {
+        this.openTask.content = this.taskContent;
+        this.openTask.name = this.taskName;
+        this.openTask.tags = this.taskTags;
+        this.tasks.push(this.openTask);
+      }
     }
     this.saveEditTask.emit(true);
   }
